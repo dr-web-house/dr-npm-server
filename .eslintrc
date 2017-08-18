@@ -75,6 +75,7 @@
           "warn"
         ]
       }
-    ]
+    ],
+    "linebreak-style": 0
   }
 }

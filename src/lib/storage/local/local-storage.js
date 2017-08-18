@@ -32,6 +32,8 @@ const generatePackageTemplate = function(name) {
     '_distfiles': {},
     '_attachments': {},
     '_uplinks': {},
+
+    '_date': new Date().getTime(),
   };
 };
 
@@ -645,6 +647,7 @@ class LocalStorage {
         }
       }
       this._normalizePackage(result);
+      hackPackageResult(result);
       callback(err, result);
     });
   }
@@ -940,6 +943,22 @@ class LocalStorage {
       }
       storage.writeJSON(pkgFileName, json, callback);
     }
+}
+
+/**
+ * Customized changes for DRCP
+ * @param {*} result 
+ */
+function hackPackageResult(result) {
+  // 为包加入日期信息，默认为Date(0)
+  let latest = result['dist-tags'].latest;
+  let date = result._date;
+  if (latest) {
+    result.versions[latest].date = date || 0;
+  }
+  if (!latest) {
+    result.versions[Object.keys(result.versions)[0]].date = date || 0;
+  }
 }
 
 const PathWrapper = (function() {
