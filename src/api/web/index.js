@@ -40,6 +40,10 @@ module.exports = function(config, auth, storage) {
   });
 
   router.get('/', function(req, res) {
+    if (config.drComponentStore) {
+      res.redirect(config.drComponentStore);
+      return;
+    }
     const base = Utils.combineBaseUrl(Utils.getWebProtocol(req), req.get('host'), config.url_prefix);
     let webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
@@ -50,6 +54,8 @@ module.exports = function(config, auth, storage) {
 
     res.send(webPage);
   });
+
+  require('../../../drcp/web-api').createRouter(config, auth, storage, router);
 
   return router;
 };
