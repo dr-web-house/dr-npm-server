@@ -1,7 +1,7 @@
 var async = require('async');
 var _ = require('lodash');
 var pagination = require('./pagination');
-var Search = require('../src/lib/search');
+var Search = require('../build/lib/search');
 
 exports.createRouter = function(config, auth, storage, app) {
 	/**
