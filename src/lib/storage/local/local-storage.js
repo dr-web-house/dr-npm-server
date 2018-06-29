@@ -1,4 +1,7 @@
-/* eslint prefer-rest-params: "off" */
+/**
+ * This file is deleted in Verdaccio 3.2.0!
+ */
+/* eslint prefer-rest-params: "off", guard-for-in: 1 */
 /* eslint prefer-spread: "off" */
 'use strict';
 
@@ -23,17 +26,17 @@ const resourceNotAvailable = 'EAGAIN';
 const generatePackageTemplate = function(name) {
   return {
     // standard things
-    'name': name,
-    'versions': {},
+    name: name,
+    versions: {},
     'dist-tags': {},
-    'time': {},
+    time: {},
 
     // our own object
-    '_distfiles': {},
-    '_attachments': {},
-    '_uplinks': {},
+    _distfiles: {},
+    _attachments: {},
+    _uplinks: {},
 
-    '_date': new Date().getTime(),
+    _date: new Date().getTime(),
   };
 };
 
@@ -281,7 +284,6 @@ class LocalStorage {
         let tarball = metadata.dist.tarball.replace(/.*\//, '');
 
         if (this.utils.is_object(data._attachments[tarball])) {
-
           if (_.isNil(data._attachments[tarball].shasum) === false && _.isNil(metadata.dist.shasum) === false) {
             if (data._attachments[tarball].shasum != metadata.dist.shasum) {
               const errorMessage = `shasum error, ${data._attachments[tarball].shasum} != ${metadata.dist.shasum}`;
@@ -679,21 +681,21 @@ class LocalStorage {
               if (data.versions[latest]) {
                 const version = data.versions[latest];
                 stream.push({
-                  'name': version.name,
-                  'description': version.description,
+                  name: version.name,
+                  description: version.description,
                   'dist-tags': {latest: latest},
-                  'maintainers': version.maintainers || [version.author].filter(Boolean),
-                  'author': version.author,
-                  'repository': version.repository,
-                  'readmeFilename': version.readmeFilename || '',
-                  'homepage': version.homepage,
-                  'keywords': version.keywords,
-                  'bugs': version.bugs,
-                  'license': version.license,
-                  'time': {
+                  maintainers: version.maintainers || [version.author].filter(Boolean),
+                  author: version.author,
+                  repository: version.repository,
+                  readmeFilename: version.readmeFilename || '',
+                  homepage: version.homepage,
+                  keywords: version.keywords,
+                  bugs: version.bugs,
+                  license: version.license,
+                  time: {
                     modified: item.time ? new Date(item.time).toISOString() : stats.mtime,
                   },
-                  'versions': {[latest]: 'latest'},
+                  versions: {[latest]: 'latest'},
                  });
               }
 
@@ -947,7 +949,7 @@ class LocalStorage {
 
 /**
  * Customized changes for DRCP
- * @param {*} result 
+ * @param {*} result
  */
 function hackPackageResult(result) {
   // 为包加入日期信息，默认为Date(0)
@@ -966,7 +968,6 @@ const PathWrapper = (function() {
    * A wrapper adding paths to fs_storage methods.
    */
   class Wrapper {
-
     /**
      * @param {*} path
      */
